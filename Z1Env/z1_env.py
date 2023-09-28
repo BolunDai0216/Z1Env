@@ -28,7 +28,8 @@ class Z1Sim(Env):
 
         self.record_path = record_path
 
-        p.setGravity(0, 0, 0.0)
+        # p.setGravity(0, 0, -9.81)
+        p.setGravity(0, 0, 0)
         p.setTimeStep(1 / 240)
 
         # Load plane
@@ -97,7 +98,7 @@ class Z1Sim(Env):
         *,
         seed: Optional[int] = None,
         options: Optional[dict] = None,
-        cameraDistance=1.4,
+        cameraDistance=0.5,
         cameraYaw=66.4,
         cameraPitch=-16.2,
         lookat=[0.0, 0.0, 0.0]
@@ -113,6 +114,8 @@ class Z1Sim(Env):
 
         q, dq = self.get_state_update_pinocchio()
         info = self.get_info(q, dq)
+
+        p.resetDebugVisualizerCamera(cameraDistance, cameraYaw, cameraPitch, lookat)
 
         if self.record_path is not None:
             p.resetDebugVisualizerCamera(cameraDistance, cameraYaw, cameraPitch, lookat)
@@ -220,14 +223,26 @@ class Z1Sim(Env):
     def send_joint_command(self, tau):
         zeroGains = tau.shape[0] * (0.0,)
 
+        print(tau)
+
         p.setJointMotorControlArray(
             self.robotID,
             self.active_joint_ids,
-            p.TORQUE_CONTROL,
-            forces=tau,
-            positionGains=zeroGains,
-            velocityGains=zeroGains,
+            p.POSITION_CONTROL,
+            targetPositions=[0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            targetVelocities=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            positionGains=[1.0] * 7,
+            velocityGains=[0.1] * 7,
         )
+
+        # p.setJointMotorControlArray(
+        #     self.robotID,
+        #     self.active_joint_ids,
+        #     p.POSITION_CONTROL,
+        #     forces=[0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        #     positionGains=[1.0] * 7,
+        #     velocityGains=zeroGains,
+        # )
 
 
 def main():
