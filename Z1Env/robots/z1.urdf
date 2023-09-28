@@ -283,5 +283,29 @@
       <inertia ixx="0.00017716" ixy="1.683e-05" ixz="-1.786e-05" iyy="0.00026787" iyz="2.62e-06" izz="0.00035728"/>
     </inertial>
   </link>
+
+  <link name="tcp_link">
+    <!-- <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1. 0. 0. 1."/>
+      </material>
+    </visual> -->
+    <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value="1e-5"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  <joint name="tcp_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.19 0.0 -0.01"/>
+    <parent link="link6"/>
+    <child link="tcp_link"/>
+  </joint>
+
 </robot>
 
