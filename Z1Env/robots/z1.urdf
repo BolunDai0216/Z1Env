@@ -10,6 +10,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link0.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -26,8 +29,8 @@
   
   <joint name="joint1" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.0585"/>
-    <parent link="link00"/>
-    <child link="link01"/>
+    <parent link="link0"/>
+    <child link="link1"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="1.0" friction="1.0"/>
     <limit effort="30.0" lower="-2.6179938779914944" upper="2.6179938779914944" velocity="3.1415"/>
@@ -39,6 +42,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link1.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="2.47e-06 -0.00025198 0.02317169"/>
@@ -49,8 +55,8 @@
   
   <joint name="joint2" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.045"/>
-    <parent link="link01"/>
-    <child link="link02"/>
+    <parent link="link1"/>
+    <child link="link2"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="2.0" friction="2.0"/>
     <limit effort="60.0" lower="0.0" upper="2.9670597283903604" velocity="3.1415"/>
@@ -62,6 +68,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link2.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -90,8 +99,8 @@
   
   <joint name="joint3" type="revolute">
     <origin rpy="0 0 0" xyz="-0.35 0 0"/>
-    <parent link="link02"/>
-    <child link="link03"/>
+    <parent link="link2"/>
+    <child link="link3"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="1.0" friction="1.0"/>
     <limit effort="30.0" lower="-2.8797932657906435" upper="0.0" velocity="3.1415"/>
@@ -103,6 +112,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link3.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -125,8 +137,8 @@
   
   <joint name="joint4" type="revolute">
     <origin rpy="0 0 0" xyz="0.218 0 0.057"/>
-    <parent link="link03"/>
-    <child link="link04"/>
+    <parent link="link3"/>
+    <child link="link4"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="1.0" friction="1.0"/>
     <limit effort="30.0" lower="-1.5184364492350666" upper="1.5184364492350666" velocity="3.1415"/>
@@ -138,6 +150,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link4.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -154,8 +169,8 @@
   
   <joint name="joint5" type="revolute">
     <origin rpy="0 0 0" xyz="0.07 0.0 0.0"/>
-    <parent link="link04"/>
-    <child link="link05"/>
+    <parent link="link4"/>
+    <child link="link5"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="1.0" friction="1.0"/>
     <limit effort="30.0" lower="-1.3439035240356338" upper="1.3439035240356338" velocity="3.1415"/>
@@ -167,6 +182,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link5.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0.03121533 0.0 0.00646316"/>
@@ -174,10 +192,11 @@
       <inertia ixx="0.00017605" ixy="4e-07" ixz="5.689e-05" iyy="0.00055896" iyz="-1.3e-07" izz="0.0005386"/>
     </inertial>
   </link>
+
   <joint name="joint6" type="revolute">
     <origin rpy="0 0 0" xyz="0.0492 0.0 0.0"/>
-    <parent link="link05"/>
-    <child link="link06"/>
+    <parent link="link5"/>
+    <child link="link6"/>
     <axis xyz="1 0 0"/>
     <dynamics damping="1.0" friction="1.0"/>
     <limit effort="30.0" lower="-2.792526803190927" upper="2.792526803190927" velocity="3.1415"/>
@@ -189,6 +208,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link6.obj" scale="1 1 1"/>
       </geometry>
+      <material name="white">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -202,9 +224,10 @@
       <inertia ixx="0.00018328" ixy="1.22e-06" ixz="5.4e-07" iyy="0.0001475" iyz="8e-08" izz="0.0001468"/>
     </inertial>
   </link>
+
   <joint name="gripperStator" type="fixed">
     <origin rpy="0 0 0" xyz="0.051 0.0 0.0"/>
-    <parent link="link06"/>
+    <parent link="link6"/>
     <child link="gripperStator"/>
   </joint>
   
@@ -213,6 +236,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_gripper_stator.obj" scale="1 1 1"/>
       </geometry>
+      <material name="gray">
+        <color rgba="0.3 0.3 0.3 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
@@ -240,6 +266,9 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_gripper_mover.obj" scale="1 1 1"/>
       </geometry>
+      <material name="gray">
+        <color rgba="0.3 0.3 0.3 1."/>
+      </material>
     </visual>
     <collision>
       <geometry>
