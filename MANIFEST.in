@@ -1,0 +1,5 @@
+include Z1Env/robots/meshes/collision/*.stl
+include Z1Env/robots/meshes/visual/*.mtl
+include Z1Env/robots/meshes/visual/*.png
+include Z1Env/robots/meshes/visual/*.obj
+include Z1Env/robots/*.urdf
