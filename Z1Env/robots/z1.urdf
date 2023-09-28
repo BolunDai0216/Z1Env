@@ -6,7 +6,7 @@
 <robot name="z1">
   <link name="link0">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link0.obj" scale="1 1 1"/>
       </geometry>
@@ -38,7 +38,7 @@
   
   <link name="link1">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link1.obj" scale="1 1 1"/>
       </geometry>
@@ -64,7 +64,7 @@
   
   <link name="link2">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link2.obj" scale="1 1 1"/>
       </geometry>
@@ -108,7 +108,7 @@
   
   <link name="link3">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link3.obj" scale="1 1 1"/>
       </geometry>
@@ -146,7 +146,7 @@
   
   <link name="link4">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link4.obj" scale="1 1 1"/>
       </geometry>
@@ -178,7 +178,7 @@
   
   <link name="link5">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link5.obj" scale="1 1 1"/>
       </geometry>
@@ -204,7 +204,7 @@
   
   <link name="link6">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link6.obj" scale="1 1 1"/>
       </geometry>
@@ -226,7 +226,7 @@
   </link>
 
   <joint name="gripperStator" type="fixed">
-    <origin rpy="0 0 0" xyz="0.051 0.0 0.0"/>
+    <origin rpy="1.5708 0 0" xyz="0.051 0.0 0.0"/>
     <parent link="link6"/>
     <child link="gripperStator"/>
   </joint>
@@ -256,7 +256,7 @@
     <origin rpy="0 0 0" xyz="0.049 0.0 0"/>
     <parent link="gripperStator"/>
     <child link="gripperMover"/>
-    <axis xyz="0 1 0"/>
+    <axis xyz="0 0 -1"/>
     <dynamics damping="1.0" friction="1.0"/>
     <limit effort="30.0" lower="-1.5707963267948966" upper="0.0" velocity="3.1415"/>
   </joint>
