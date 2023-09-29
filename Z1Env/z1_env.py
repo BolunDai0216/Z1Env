@@ -88,7 +88,7 @@ class Z1Sim(Env):
         )
 
         # End-effector frame id
-        self.EE_FRAME_ID = self.robot.model.getFrameId("gripperMover")
+        self.EE_FRAME_ID = self.robot.model.getFrameId("tcp_link")
 
         # Get frame ID for grasp target
         self.jacobian_frame = pin.ReferenceFrame.LOCAL_WORLD_ALIGNED
@@ -113,8 +113,6 @@ class Z1Sim(Env):
 
         q, dq = self.get_state_update_pinocchio()
         info = self.get_info(q, dq)
-
-        p.resetDebugVisualizerCamera(cameraDistance, cameraYaw, cameraPitch, lookat)
 
         if self.record_path is not None:
             p.resetDebugVisualizerCamera(cameraDistance, cameraYaw, cameraPitch, lookat)
