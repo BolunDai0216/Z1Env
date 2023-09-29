@@ -13,22 +13,22 @@ def main():
     info = env.reset()
 
     for i in range(10000):
-        tau = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+        q_des = np.array([0.0, 0.625, -0.424, 0.1, 0.1, 0.1, -0.1])
+        dq_des = np.zeros(7)
 
-        # Set control for the gripper to zero
-        # tau[-1] = 0.0
+        tau = 5 * (q_des - info["q"]) + 0.5 * (dq_des - info["dq"]) + info["G"]
+
+        # print(tau)
 
         # Send joint commands to motor
         info = env.step(tau)
 
-        for i in range(p.getNumJoints(env.robotID)):
-            joint_info = p.getJointState(env.robotID, i)
-            reaction_forces = joint_info[3]
-            print("Joint", i, "Reaction Forces:", reaction_forces)
+        # for i in range(p.getNumJoints(env.robotID)):
+        #     joint_info = p.getJointState(env.robotID, i)
+        #     reaction_forces = joint_info[2]
+        #     print("Joint", i, "Reaction Forces:", reaction_forces)
 
-        # breakpoint()
-
-        time.sleep(1 / 240)
+        time.sleep(1e-3)
 
     env.close()
 

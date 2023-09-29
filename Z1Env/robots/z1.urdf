@@ -10,7 +10,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link0.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -26,7 +26,7 @@
       <inertia ixx="0.00037937" ixy="-3.5e-07" ixz="-1.037e-05" iyy="0.00041521" iyz="-9.9e-07" izz="0.00053066"/>
     </inertial>
   </link>
-  
+
   <joint name="joint1" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.0585"/>
     <parent link="link0"/>
@@ -42,7 +42,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link1.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -74,7 +74,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link2.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -106,7 +106,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link3.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -144,7 +144,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link4.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -176,7 +176,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link5.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -208,7 +208,7 @@
       <geometry>
         <mesh filename="package://robots/meshes/visual/z1_link6.obj" scale="1 1 1"/>
       </geometry>
-      <material name="white">
+      <material name="silver">
         <color rgba="0.75 0.75 0.75 1."/>
       </material>
     </visual>
@@ -296,8 +296,8 @@
     </visual> -->
     <inertial>
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <mass value="1e-5"/>
-        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+        <mass value="1e-10"/>
+        <inertia ixx="1e-10" ixy="0" ixz="0" iyy="1e-10" iyz="0" izz="1e-10"/>
     </inertial>
   </link>
 
@@ -306,6 +306,4 @@
     <parent link="link6"/>
     <child link="tcp_link"/>
   </joint>
-
 </robot>
-

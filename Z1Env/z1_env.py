@@ -28,9 +28,8 @@ class Z1Sim(Env):
 
         self.record_path = record_path
 
-        # p.setGravity(0, 0, -9.81)
-        p.setGravity(0, 0, 0)
-        p.setTimeStep(1 / 240)
+        p.setGravity(0, 0, -9.81)
+        p.setTimeStep(5e-4)
 
         # Load plane
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -46,26 +45,9 @@ class Z1Sim(Env):
         # Build pin_robot
         self.robot = RobotWrapper.BuildFromURDF(robot_URDF, package_directory)
 
-        # Get active joint ids
-        self.active_joint_ids = [0, 1, 2, 3, 4, 5, 7]
-
-        # Disable the velocity control on the joints as we use torque control.
-        p.setJointMotorControlArray(
-            self.robotID,
-            self.active_joint_ids,
-            p.VELOCITY_CONTROL,
-            forces=np.zeros(7),
-        )
-
         # Get number of joints
         self.n_j = p.getNumJoints(self.robotID)
-
-        # End-effector frame id
-        self.EE_FRAME_ID = self.robot.model.getFrameId("gripperMover")
-
-        # Get frame ID for grasp target
-        self.jacobian_frame = pin.ReferenceFrame.LOCAL_WORLD_ALIGNED
-
+        self.active_joint_ids = []
         # Set observation and action space
         obs_low_q = []
         obs_low_dq = []
@@ -75,9 +57,12 @@ class Z1Sim(Env):
         _act_high = []
 
         for i in range(self.n_j):
-            _joint_infos = p.getJointInfo(self.robotID, i)  # get info of each joint
+            # get info of each joint
+            _joint_infos = p.getJointInfo(self.robotID, i)
 
             if _joint_infos[2] != p.JOINT_FIXED:
+                # Save the non-fixed joint IDs
+                self.active_joint_ids.append(_joint_infos[0])
                 obs_low_q.append(_joint_infos[8])
                 obs_high_q.append(_joint_infos[9])
                 obs_low_dq.append(-_joint_infos[11])
@@ -85,6 +70,7 @@ class Z1Sim(Env):
                 _act_low.append(-_joint_infos[10])
                 _act_high.append(_joint_infos[10])
 
+        self.n_j_active = len(self.active_joint_ids)
         obs_low = np.array(obs_low_q + obs_low_dq, dtype=np.float32)
         obs_high = np.array(obs_high_q + obs_high_dq, dtype=np.float32)
         act_low = np.array(_act_low, dtype=np.float32)
@@ -92,6 +78,20 @@ class Z1Sim(Env):
 
         self.observation_space = spaces.Box(obs_low, obs_high, dtype=np.float32)
         self.action_space = spaces.Box(act_low, act_high, dtype=np.float32)
+
+        # Disable the velocity control on the joints as we use torque control.
+        p.setJointMotorControlArray(
+            self.robotID,
+            self.active_joint_ids,
+            p.VELOCITY_CONTROL,
+            forces=np.zeros(self.n_j_active),
+        )
+
+        # End-effector frame id
+        self.EE_FRAME_ID = self.robot.model.getFrameId("gripperMover")
+
+        # Get frame ID for grasp target
+        self.jacobian_frame = pin.ReferenceFrame.LOCAL_WORLD_ALIGNED
 
     def reset(
         self,
@@ -105,8 +105,7 @@ class Z1Sim(Env):
     ):
         super().reset(seed=seed)
 
-        target_joint_angles = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-
+        target_joint_angles = [0.0] * self.n_j_active
         self.q_nominal = np.array(target_joint_angles)
 
         for i, joint_ang in enumerate(target_joint_angles):
@@ -181,13 +180,14 @@ class Z1Sim(Env):
         nle = self.robot.nle(q, dq)
 
         f = np.vstack((dq[:, np.newaxis], -Minv @ nle[:, np.newaxis]))
-        g = np.vstack((np.zeros((7, 7)), Minv))
+        g = np.vstack((np.zeros((self.n_j_active, self.n_j_active)), Minv))
 
         return f, g, M, Minv, nle
 
     def step(self, action):
-        self.send_joint_command(action)
-        p.stepSimulation()
+        for _ in range(2):
+            self.send_joint_command(action)
+            p.stepSimulation()
 
         q, dq = self.get_state_update_pinocchio()
         info = self.get_info(q, dq)
@@ -200,8 +200,8 @@ class Z1Sim(Env):
         p.disconnect()
 
     def get_state(self):
-        q = np.zeros(7)
-        dq = np.zeros(7)
+        q = np.zeros(self.n_j_active)
+        dq = np.zeros(self.n_j_active)
 
         for i, id in enumerate(self.active_joint_ids):
             _joint_state = p.getJointState(self.robotID, id)
@@ -223,26 +223,14 @@ class Z1Sim(Env):
     def send_joint_command(self, tau):
         zeroGains = tau.shape[0] * (0.0,)
 
-        print(tau)
-
         p.setJointMotorControlArray(
             self.robotID,
             self.active_joint_ids,
-            p.POSITION_CONTROL,
-            targetPositions=[0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-            targetVelocities=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-            positionGains=[1.0] * 7,
-            velocityGains=[0.1] * 7,
+            p.TORQUE_CONTROL,
+            forces=tau,
+            positionGains=zeroGains,
+            velocityGains=zeroGains,
         )
-
-        # p.setJointMotorControlArray(
-        #     self.robotID,
-        #     self.active_joint_ids,
-        #     p.POSITION_CONTROL,
-        #     forces=[0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        #     positionGains=[1.0] * 7,
-        #     velocityGains=zeroGains,
-        # )
 
 
 def main():
