@@ -111,16 +111,10 @@
       </material>
     </visual>
     <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.116" radius="0.02"/>
+        <mesh filename="package://robots/meshes/collision/z1_link3.STL" scale="1 1 1"/>
       </geometry>
-      <origin rpy="0 1.5707963267948966 0" xyz="0.128 0 0.055"/>
-    </collision>
-    <collision>
-      <geometry>
-        <cylinder length="0.059" radius="0.0325"/>
-      </geometry>
-      <origin rpy="0 1.5707963267948966 1.5707963267948966" xyz="0.2205 0 0.055"/>
     </collision>
     <inertial>
       <origin rpy="0 0 0" xyz="0.10609208 -0.00541815 0.03476383"/>
@@ -149,10 +143,10 @@
       </material>
     </visual>
     <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.067" radius="0.0325"/>
+        <mesh filename="package://robots/meshes/collision/z1_link4.STL" scale="1 1 1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0.072 0 0"/>
     </collision>
     <inertial>
       <origin rpy="0 0 0" xyz="0.04366681 0.00364738 -0.00170192"/>
@@ -213,10 +207,14 @@
       </material>
     </visual>
     <collision>
-      <geometry>
+      <!-- <geometry>
         <cylinder length="0.051" radius="0.0325"/>
       </geometry>
-      <origin rpy="0 1.5707963267948966 0" xyz="0.0255 0 0"/>
+      <origin rpy="0 1.5707963267948966 0" xyz="0.0255 0 0"/> -->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots/meshes/collision/z1_link6.STL" scale="1 1 1"/>
+      </geometry>
     </collision>
     <inertial>
       <origin rpy="0 0 0" xyz="0.0241569 -0.00017355 -0.00143876"/>
@@ -243,7 +241,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://robots/meshes/collision/z1_GripperStator.STL" scale="1 1 1"/>
+        <mesh filename="package://robots/meshes/collision/z1_gripper_stator.STL" scale="1 1 1"/>
       </geometry>
     </collision>
     <inertial>
@@ -274,7 +272,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://robots/meshes/collision/z1_GripperMover.STL" scale="1 1 1"/>
+        <mesh filename="package://robots/meshes/collision/z1_gripper_mover.STL" scale="1 1 1"/>
       </geometry>
     </collision>
     <inertial>
