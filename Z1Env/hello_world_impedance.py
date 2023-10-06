@@ -67,7 +67,13 @@ def main():
         time.sleep(1e-3)
 
         if i % 100 == 0:
-            print(f"Error: {np.linalg.norm(error):.4f}")
+            print(
+                "\033[1m"
+                + f"\r> Normalized Error: {np.linalg.norm(error):.4f}"
+                + "\033[0m",
+                end="",
+                flush=True,
+            )
 
     env.close()
 
