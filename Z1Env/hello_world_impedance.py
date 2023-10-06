@@ -37,7 +37,7 @@ def main():
         v_EE = info["J_EE"] @ info["dq"][:, np.newaxis]
 
         # compute orientation error
-        R_error = info["R_EE"].T @ R_des
+        R_error = R_des @ info["R_EE"].T
         ori_error = pin.log3(R_error)
 
         # compute position error
@@ -65,6 +65,9 @@ def main():
         # Send joint commands to motor
         info = env.step(tau)
         time.sleep(1e-3)
+
+        if i % 100 == 0:
+            print(f"Error: {np.linalg.norm(error):.4f}")
 
     env.close()
 
