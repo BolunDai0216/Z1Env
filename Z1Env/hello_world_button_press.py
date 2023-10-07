@@ -41,7 +41,7 @@ def main():
         # compute end-effector velocity
         v_EE = info["J_EE"] @ info["dq"][:, np.newaxis]
 
-        # compute orientation error
+        # compute orientation error in the world frame
         R_error = R_des @ info["R_EE"].T
         ori_error = pin.log3(R_error)
 
