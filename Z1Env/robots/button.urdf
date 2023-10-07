@@ -1,0 +1,61 @@
+<?xml version="0.0" ?>
+<robot name="button">
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <mass value=".5"/>
+       <inertia ixx="1.67e-3" ixy="0" ixz="0" iyy="1.67e-3" iyz="0" izz="3.33e-3"/>
+    </inertial>
+    
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.01"/>      
+      </geometry>
+      <material name="cornflowerblue">
+        <color rgba="0.3921 0.5843 0.9294 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.01"/>      
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint1" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 0 0.00"/>
+    <parent link="base_link"/>
+    <child link="button"/>
+    <axis xyz="0 0 1"/>
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30.0" lower="0.0" upper="0.02" velocity="10.0"/>
+  </joint>
+
+  <link name="button">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <mass value=".1"/>
+       <inertia ixx="2.17e-5" ixy="0" ixz="0" iyy="2.17e-5" iyz="0" izz="4.17e-5"/>
+    </inertial>
+    
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.01"/>      
+      </geometry>
+      <material name="darkorange">
+        <color rgba="1.0 0.549 0.0 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.01"/>      
+      </geometry>
+    </collision>
+  </link>
+</robot>
