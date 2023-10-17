@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class SplineGen:
+class SplineGenerator:
     def __init__(self, q_init, q_term, T):
         """
         Generates a spline from q_init to q_term in time T.
@@ -11,12 +11,23 @@ class SplineGen:
             q_term (numpy.array): Final joint angle.
             T (float): Time to complete the spline.
         """
+        self.reset_coeff(self, q_init, q_term, T)
+
+    def reset_coeff(self, q_init, q_term, T):
+        """
+        Resets the spline.
+
+        Args:
+            q_init (numpy.array): Initial joint angle.
+            q_term (numpy.array): Final joint angle.
+            T (float): Time to complete the spline.
+        """
         self.q_init = q_init
         self.q_term = q_term
         self.T = T
-        self.computeCoeff()
+        self._compute_coeff()
 
-    def computeCoeff(self):
+    def _compute_coeff(self):
         """
         Computes the coefficients of the spline.
         """

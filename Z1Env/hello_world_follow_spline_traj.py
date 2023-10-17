@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 from Z1Env.z1_env import Z1Sim
-from Z1Env.spline_gen import SplineGen
+from Z1Env.spline_gen import SplineGenerator
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
     Kd = np.diag([0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2])
     T = 2
 
-    spline = SplineGen(info["q"].reshape((1, 7)), q_term, T)
+    spline = SplineGenerator(info["q"].reshape((1, 7)), q_term, T)
 
     for i in range(20000):
         t = i * dt
