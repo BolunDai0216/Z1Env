@@ -19,11 +19,6 @@ class SplineGen:
     def computeCoeff(self):
         """
         Computes the coefficients of the spline.
-
-        Let the spline be defined as:
-        q(t) = a5*t^5 + a4*t^4 + a3*t^3 + a2*t^2 + a1*t + a0
-        dq(t) = 5*a5*t^4 + 4*a4*t^3 + 3*a3*t^2 + 2*a2*t + a1
-        ddq(t) = 20*a5*t^3 + 12*a4*t^2 + 6*a3*t + 2*a2
         """
         A = np.array(
             [
