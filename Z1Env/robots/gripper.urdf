@@ -4,6 +4,35 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="z1_gripper">
+  <link name="link6">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots/meshes/visual/z1_link6.obj" scale="1 1 1"/>
+      </geometry>
+      <material name="silver">
+        <color rgba="0.75 0.75 0.75 1."/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots/meshes/collision/z1_link6.STL" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0241569 -0.00017355 -0.00143876"/>
+      <mass value="0.28875807"/>
+      <inertia ixx="0.00018328" ixy="1.22e-06" ixz="5.4e-07" iyy="0.0001475" iyz="8e-08" izz="0.0001468"/>
+    </inertial>
+  </link>
+
+  <joint name="gripperStator" type="fixed">
+    <origin rpy="0 0 0" xyz="0.051 0.0 0.0"/>
+    <parent link="link6"/>
+    <child link="gripperStator"/>
+  </joint>
+
   <link name="gripperStator">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
