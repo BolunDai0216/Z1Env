@@ -11,7 +11,7 @@ class SplineGenerator:
             q_term (numpy.array): Final joint angle.
             T (float): Time to complete the spline.
         """
-        self.reset_coeff(self, q_init, q_term, T)
+        self.reset_coeff(q_init, q_term, T)
 
     def reset_coeff(self, q_init, q_term, T):
         """
