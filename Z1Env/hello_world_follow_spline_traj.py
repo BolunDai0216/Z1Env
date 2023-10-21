@@ -11,28 +11,20 @@ def main():
     info = env.reset()
 
     dt = 5e-4
-    q_term = np.array([[0, 0.671, -0.500, -0.144, 0.0, 0.0, 0]])
-
-    Kp = np.diag([20, 20, 20, 2, 2, 2, 2])
-    Kd = np.diag([0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2])
     T = 2.0
 
-    q0 = np.matrix(info["q"]).T
-    qT = np.matrix(q_term).T
+    q_term = np.array([0, 0.671, -0.500, -0.144, 0.0, 0.0, 0])
+    Kp = np.diag([20, 20, 20, 2, 2, 2, 2])
+    Kd = np.diag([0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2])
 
-    curve = polynomial.MinimumJerk(q0, qT, 0.0, T)
+    curve = polynomial.MinimumJerk(info["q"], q_term, 0.0, T)
 
     for i in range(20000):
-        t = i * dt
-
-        if t >= T:
-            t = T
-
+        t = np.clip(i * dt, 0.0, T)
         q = curve(t)
         dq = curve.derivate(t, 1)
 
         tau = Kp @ (q - info["q"]) + Kd @ (dq - info["dq"]) + info["G"]
-
         info = env.step(tau)
 
         time.sleep(dt)
