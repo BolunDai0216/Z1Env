@@ -1,4 +1,3 @@
-import time
 from typing import Optional
 
 from gymnasium import Env
@@ -103,18 +102,19 @@ class GripperSim(Env):
         )
 
     def step(self, action):
-        pos = action["pos"][:, np.newaxis]
+        if action["pos"].shape == (3,):
+            pos = action["pos"][:, np.newaxis]
+        elif action["pos"].shape == (3, 1):
+            pos = action["pos"]
+        else:
+            raise ValueError("action['pos'] must be of shape (3,) or (3, 1)")
+
         rot_mat = action["rot_mat"]
         base_pos, base_quat = self.get_pose(pos, rot_mat)
 
         p.resetBasePositionAndOrientation(
             self.robotID, base_pos.tolist(), base_quat.tolist()
         )
-
-    def close(self):
-        if self.record_path is not None:
-            p.stopStateLogging(self.loggingId)
-        p.disconnect()
 
     def get_pose(self, pos, rot_mat):
         _T_gripper = pin.SE3(rot_mat, pos)
@@ -125,22 +125,7 @@ class GripperSim(Env):
 
         return base_pos, base_quat
 
-
-def main():
-    env = GripperSim(render_mode="human")
-    _ = env.reset()
-
-    for i in range(100000):
-        t = 1 * i / 100
-
-        action = {
-            "pos": np.array([0.0, 0.0, 1.0 + 0.5 * np.sin(t)]),
-            "rot_mat": np.eye(3),
-        }
-
-        _ = env.step(action)
-        time.sleep(0.01)
-
-
-if __name__ == "__main__":
-    main()
+    def close(self):
+        if self.record_path is not None:
+            p.stopStateLogging(self.loggingId)
+        p.disconnect()
