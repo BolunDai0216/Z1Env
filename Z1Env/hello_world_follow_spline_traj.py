@@ -1,9 +1,9 @@
 import time
 
+from ndcurves import polynomial
 import numpy as np
 
 from Z1Env.z1_env import Z1Sim
-from Z1Env.spline_gen import SplineGenerator
 
 
 def main():
@@ -15,9 +15,12 @@ def main():
 
     Kp = np.diag([20, 20, 20, 2, 2, 2, 2])
     Kd = np.diag([0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2])
-    T = 2
+    T = 2.0
 
-    spline = SplineGenerator(info["q"].reshape((1, 7)), q_term, T)
+    q0 = np.matrix(info["q"]).T
+    qT = np.matrix(q_term).T
+
+    curve = polynomial.MinimumJerk(q0, qT, 0.0, T)
 
     for i in range(20000):
         t = i * dt
@@ -25,8 +28,8 @@ def main():
         if t >= T:
             t = T
 
-        q = spline.get_q(t)[:, 0]
-        dq = spline.get_dq(t)[:, 0]
+        q = curve(t)
+        dq = curve.derivate(t, 1)
 
         tau = Kp @ (q - info["q"]) + Kd @ (dq - info["dq"]) + info["G"]
 
