@@ -8,3 +8,4 @@ def getDataPath():
 
 from Z1Env.z1_env import Z1Sim
 from Z1Env.gripper_env import GripperSim
+from Z1Env.differential_ik import DiffIK
