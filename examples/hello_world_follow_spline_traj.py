@@ -1,7 +1,7 @@
 import time
 
-from ndcurves import polynomial
 import numpy as np
+from ndcurves import polynomial
 
 from Z1Env import Z1Sim
 

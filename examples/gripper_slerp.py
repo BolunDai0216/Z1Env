@@ -1,8 +1,8 @@
 import time
 
-from ndcurves import SE3Curve
 import numpy as np
 import pinocchio as pin
+from ndcurves import SE3Curve
 
 from Z1Env import GripperSim
 

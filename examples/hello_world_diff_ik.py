@@ -1,9 +1,9 @@
 import time
 
-from ndcurves import SE3Curve
 import numpy as np
 import pinocchio as pin
 import pybullet as p
+from ndcurves import SE3Curve
 
 from Z1Env import DiffIK, Z1Sim
 

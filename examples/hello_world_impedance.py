@@ -5,8 +5,7 @@ import numpy as np
 import pinocchio as pin
 import pybullet as p
 
-from Z1Env import getDataPath
-from Z1Env import Z1Sim
+from Z1Env import Z1Sim, getDataPath
 
 
 def main():
