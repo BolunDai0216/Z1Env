@@ -15,19 +15,23 @@ def main():
     p.setAdditionalSearchPath(urdf_search_path)
 
     dimensions = [0.6, 0.5, 1]
-    wall = OOBDetection(dimensions, env)
+    oob_detector = OOBDetection(dimensions, env)
 
     base_pos, base_quat = p.getBasePositionAndOrientation(env.robotID)
-    wall.visualize_box(base_pos, base_quat)
+    oob_detector.visualize_box(base_pos, base_quat)
 
     for i in range(10000):
-        out_of_bound = wall.check_out_of_bound()
+        out_of_bound = oob_detector.check_out_of_bound()
 
         if i % 100 == 0:
             if out_of_bound:
-                p.changeVisualShape(wall.box, -1, rgbaColor=[1.0, 0.0, 0.0, 0.3])
+                p.changeVisualShape(
+                    oob_detector.box, -1, rgbaColor=[1.0, 0.0, 0.0, 0.3]
+                )
             else:
-                p.changeVisualShape(wall.box, -1, rgbaColor=[0.0, 1.0, 0.0, 0.3])
+                p.changeVisualShape(
+                    oob_detector.box, -1, rgbaColor=[0.0, 1.0, 0.0, 0.3]
+                )
 
         # compute joint torques
         q_des = np.array([0.0, 1.6, -1.5, 0.1, 0.1, 0.1, -0.1])
