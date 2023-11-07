@@ -8,5 +8,5 @@ def getDataPath():
 
 from Z1Env.differential_ik import DiffIK
 from Z1Env.gripper_env import GripperSim
+from Z1Env.oob_detection import OOBDetection
 from Z1Env.z1_env import Z1Sim
-from Z1Env.boundary_detection import BoundaryDetection
