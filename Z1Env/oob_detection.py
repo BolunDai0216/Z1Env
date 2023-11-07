@@ -45,9 +45,7 @@ class OOBDetection:
         np.tile --> since we have 6 links
         """
 
-        self.A = np.array(
-            [[1, 0, 0], [0, 1, 0], [0, 0, 1], [-1, 0, 0], [0, -1, 0], [0, 0, -1]]
-        )  # (6, 3)
+        self.A = np.vstack((np.eye(3), -np.eye(3)))  # (6, 3)
 
         b = 0.5 * np.array(
             [
