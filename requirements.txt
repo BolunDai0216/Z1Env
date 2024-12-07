@@ -1,0 +1,7 @@
+numpy
+pybullet
+gymnasium
+Z1Env
+setuptools
+pin
+proxsuite
